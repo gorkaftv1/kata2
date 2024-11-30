@@ -7,9 +7,9 @@ public class TsvWoodDeserializer implements WoodDeserializer{
         String[] fields = line.split("\t");
         return new Wood(
                 fields[0], fields[1],
-                getContinentOf(fields[2]),
-                getToneOf(fields[3]),
-                getCountry(fields[4]),
+                getContinentOf(normalize(fields[2])),
+                getToneOf(normalize(fields[3])),
+                getCountry(normalize(fields[4])),
                 getQuality(fields[5]),
                 getPrice(fields[6]),
                 getImporters(fields[7])
@@ -19,9 +19,13 @@ public class TsvWoodDeserializer implements WoodDeserializer{
     private List<Wood.Country> getImporters(String field) {
         List<Wood.Country> countries = new ArrayList<>();
         for(String n : field.split(",")) {
-            countries.add(getCountry(n));
+            countries.add(getCountry(normalize(n)));
         }
         return countries;
+    }
+
+    private String normalize(String n) {
+        return n.replace(" " ,  "");
     }
 
     private Float getPrice(String field) {

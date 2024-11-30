@@ -27,6 +27,6 @@ public class FileWoodLoader implements WoodLoader{
             if(line == null) break;
             woodList.add(deserializer.deserrialize(line));
         }
-        return List.of();
+        return woodList;
     }
 }
